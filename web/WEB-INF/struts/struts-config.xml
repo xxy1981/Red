@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+	<form-beans />
+	<global-exceptions />
+	<global-forwards>
+		<forward name="login" path="/jsp/login.jsp" />
+	</global-forwards>
+	<action-mappings>
+		<action parameter="action" path="/refresh"
+			type="com.xxy.stock.web.action.RefreshStockAction">
+			<forward name="failure" path="/jsp/main.jsp" />
+			<forward name="index" path="/jsp/index/main.jsp" />
+			<forward name="all" path="/jsp/all/main.jsp" />
+			<forward name="always" path="/jsp/always/main.jsp" />
+			<forward name="jjAlways" path="/jsp/jjcq/main.jsp" />
+			<forward name="xdqs" path="/jsp/xdqs/main.jsp" />
+			<forward name="xydp" path="/jsp/xydp/main.jsp" />
+			<forward name="mmgd" path="/jsp/mmgd/main.jsp" />
+			<forward name="rate" path="/jsp/rate/main.jsp" />
+			<forward name="main" path="/jsp/main.jsp" />
+		</action>
+
+		<action parameter="action" path="/login"
+			type="com.xxy.stock.web.action.LoginAction">
+			<forward name="failure" path="/jsp/login.jsp" />
+			<forward name="success" path="/jsp/index.jsp" />
+		</action>
+
+		<action parameter="action" path="/logout"
+			type="com.xxy.stock.web.action.LogoutAction">
+			<forward name="failure" path="/jsp/login.jsp" />
+			<forward name="success" path="/login.do" redirect="true" />
+		</action>
+
+	</action-mappings>
+
+	<controller>
+		<set-property property="processorClass"
+			value="org.springframework.web.struts.DelegatingRequestProcessor" />
+	</controller>
+	<message-resources parameter="com.xxy.stock.web.ApplicationResources" />
+</struts-config>
+

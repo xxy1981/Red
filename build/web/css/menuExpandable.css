@@ -1,0 +1,108 @@
+@import url(global.css);
+
+BODY {
+	background: #E5EFCE;
+		font-size: 12px;
+		font-family: verdana, helvetica, arial, sans-serif;
+		color: #000;
+}
+table {
+	
+		font-size: 12px;
+		font-family: verdana, helvetica, arial, sans-serif;
+		color: #000;
+}
+
+.menuList {
+  margin: 0px;
+  padding: 0px 0px 150px 2px;
+  font-weight: bold;
+}
+
+li.menubar {
+  background: url(../images/plus.gif) no-repeat 0em 0.3em;
+  font-size: 12px;
+  line-height: 1.5em;
+  list-style: none outside;
+}
+
+.menu, .submenu {
+  display: none;
+  margin-left: 15px;
+  padding: 0px;
+}
+
+.menu li, .submenu li  {
+  background: url(../images/square.gif) no-repeat 0em 0.3em;
+  list-style: none outside;
+}
+
+li.menubar a.standalone {
+  background: url(../images/square.gif) no-repeat 0em 0.2em !important;
+}
+
+a.actuator, a.standalone {
+  background-color: transparent;
+  color: #000;
+  font-size: 12px;
+  padding-left: 12px;
+  text-decoration: none;
+}
+
+.menu li a, .submenu li a {
+  background-color: transparent;
+  color: #000;
+  font-size: 12px;
+  padding-left: 12px;
+  text-decoration: none;
+}
+
+a.actuator:hover, .menu li a:hover, submenu li a:hover, li a.standalone:hover {
+  text-decoration: underline;
+}
+
+/* styles to allow for base links */
+li a.base, li a.base:visited {
+  background-color: transparent;
+  color: #000;
+  font-size: 12px;
+  padding-left: 0px;
+  text-decoration: none;
+}
+
+li a.base:hover {
+  color: #CC0000;
+  text-decoration: none;
+}
+
+span.key {
+  text-decoration: underline;
+}
+
+a.highlight {
+    color: #765 !important;
+    /*font-weight: bold;*/
+}
+
+.square  {
+  background: url(../images/square.gif) no-repeat 0em 0.3em;
+  list-style: none outside;
+}
+
+a{
+    color: #765 !important;
+    /*font-weight: bold;*/
+    text-decoration: none;
+}
+
+a:hover{
+  text-decoration: underline;
+  color: #765 !important;
+  font-weight: bold;
+}
+
+a:active{
+  text-decoration: underline;
+  color: #137A4F !important;
+  font-weight: bold;
+}

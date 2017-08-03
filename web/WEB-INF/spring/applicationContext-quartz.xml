@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean name="jobDetailOfInitialStockEveryRun" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.xxy.stock.web.job.InitialStockJob" />
+		<property name="applicationContextJobDataKey" value="applicationContext" />
+	</bean>
+	<bean id="simpleTriggerOfInitialStockEveryRun" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="jobDetailOfInitialStockEveryRun" />
+		<property name="startDelay" value="15000" />
+		<property name="repeatInterval" value="60000" />
+		<property name="repeatCount" value="0" />
+	</bean>
+	
+	
+	<bean name="jobDetailOfInitialStockEveryDay" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.xxy.stock.web.job.InitialStockJob" />
+		<property name="applicationContextJobDataKey" value="applicationContext" />
+	</bean>
+	<bean id="cronTriggerOfInitialStockEveryDay" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailOfInitialStockEveryDay"/>
+		<!-- run every morning at 9:27 AM -->
+		<property name="cronExpression" value="0 27 9 * * ?"/>
+	</bean>
+
+
+	<bean name="jobDetailOfRefreshStock" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.xxy.stock.web.job.RefreshStockJob" />
+		<property name="applicationContextJobDataKey" value="applicationContext" />
+	</bean>
+	<bean id="cronTriggerOfRefreshStock" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailOfRefreshStock"/>
+		<!-- run every morning from 9:00 AM to 14:59 PM and interval 1 minute-->
+		<!--property name="cronExpression" value="0 0/1 9-14 * * ?"/-->
+		<property name="cronExpression" value="0/30 * 9-14 * * ?"/>
+	</bean>
+	
+	
+	<bean name="jobDetailOfRefreshZxgFile" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.xxy.stock.web.job.RefreshZxgFileJob" />
+		<property name="applicationContextJobDataKey" value="applicationContext" />
+	</bean>
+	<bean id="cronTriggerOfRefreshZxgFile" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailOfRefreshZxgFile"/>
+		<!-- run every morning from 9:00 AM to 14:59 PM and interval 2 minute-->
+		<!--property name="cronExpression" value="0 0/2 9-14 * * ?"/-->
+		<property name="cronExpression" value="0 0/1 9-14 * * ?"/>
+	</bean>
+	
+	
+	<bean name="jobDetailOfRefreshRate" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.xxy.stock.web.job.RefreshRateJob" />
+		<property name="applicationContextJobDataKey" value="applicationContext" />
+	</bean>
+	<bean id="cronTriggerOfRefreshRate" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailOfRefreshRate"/>
+		<!-- run every morning from 9:00 AM to 14:59 PM and interval 1 minute-->
+		<!--property name="cronExpression" value="0 0/2 9-14 * * ?"/-->
+		<property name="cronExpression" value="0 0/1 9-14 * * ?"/>
+	</bean>
+	
+	
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="simpleTriggerOfInitialStockEveryRun" />
+				<ref bean="cronTriggerOfInitialStockEveryDay" />
+				<ref bean="cronTriggerOfRefreshStock" />
+				<ref bean="cronTriggerOfRefreshZxgFile" />
+				<ref bean="cronTriggerOfRefreshRate" />
+			</list>
+		</property>
+		<property name="schedulerContextAsMap">
+			<map>
+				<entry key="timeout" value="30" />
+			</map>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/log4j/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/quartz/quartz-all-1.6.1-RC1.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-webmvc.jar"/>
+	<classpathentry kind="lib" path="lib/struts/struts.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-webmvc-struts.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="lib/sql/druid-1.0.26.jar"/>
+	<classpathentry kind="lib" path="lib/sql/sqlite-jdbc-3.18.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/json/fastjson-1.2.28.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient/httpclient-4.3.5.jar"/>
+	<classpathentry kind="lib" path="lib/httpclient/httpcore-4.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/j2ee/jsp-api.jar"/>
+	<classpathentry kind="lib" path="lib/j2ee/jstl.jar"/>
+	<classpathentry kind="lib" path="lib/j2ee/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/j2ee/standard.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-attributes-api.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-codec.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-collections.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-dbcp.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-digester.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-discovery.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-io.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-pool.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-validator.jar"/>
+	<classpathentry kind="lib" path="lib/okhttp/okhttp-3.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/okhttp/okio-1.13.0.jar"/>
+	<classpathentry kind="output" path="web/WEB-INF/classes"/>
+</classpath>

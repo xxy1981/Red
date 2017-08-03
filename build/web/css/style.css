@@ -1,0 +1,481 @@
+BODY {
+	background: #E5EFCE;
+	font-size: 12px;
+	font-family: verdana, helvetica, arial, sans-serif;
+	color: #000;
+}
+
+table {
+	font-size: 12px;
+	font-family: verdana, helvetica, arial, sans-serif;
+	color: #000;
+}
+
+BODY1 {
+	BACKGROUND: #fff;
+	FONT: 12px/ 1.5em Georgia, Serif
+}
+
+UL.glassList {
+	LIST-STYLE: disc url(../images/aquadot.jpg) outside;
+	MARGIN-RIGHT: 50px
+}
+
+DIV#content {
+	CLEAR: both;
+	PADDING-RIGHT: 1em;
+	PADDING-LEFT: 1em;
+	PADDING-BOTTOM: 1em;
+	MARGIN: 0px;
+	WIDTH: 400px;
+	PADDING-TOP: 1em
+}
+
+DIV#header {
+	MARGIN-BOTTOM: 0px
+}
+
+DIV#source {
+	PADDING-RIGHT: 10px;
+	PADDING-LEFT: 3px;
+	FONT-WEIGHT: bold;
+	Z-INDEX: 1000;
+	RIGHT: 0px;
+	BACKGROUND: #eee;
+	PADDING-BOTTOM: 3px;
+	BORDER-LEFT: silver 1px solid;
+	WIDTH: 120px;
+	PADDING-TOP: 3px;
+	BORDER-BOTTOM: silver 1px solid;
+	POSITION: absolute;
+	TOP: 0px;
+	TEXT-ALIGN: right
+}
+
+DIV#pageSource {
+	BORDER-RIGHT: silver 1px solid;
+	PADDING-RIGHT: 3px;
+	BORDER-TOP: silver 0px solid;
+	PADDING-LEFT: 3px;
+	Z-INDEX: 1000;
+	RIGHT: 133px;
+	BACKGROUND: #ffd;
+	PADDING-BOTTOM: 3px;
+	BORDER-LEFT: silver 1px solid;
+	WIDTH: 200px;
+	PADDING-TOP: 3px;
+	BORDER-BOTTOM: silver 1px solid;
+	POSITION: absolute;
+	TOP: 0px
+}
+
+IMG.download {
+	BORDER-TOP-WIDTH: 0px;
+	BORDER-LEFT-WIDTH: 0px;
+	BORDER-BOTTOM-WIDTH: 0px;
+	VERTICAL-ALIGN: middle;
+	BORDER-RIGHT-WIDTH: 0px
+}
+
+BODY#index DIV#source {
+	BACKGROUND: none transparent scroll repeat 0% 0%;
+	BORDER-TOP-STYLE: none;
+	BORDER-RIGHT-STYLE: none;
+	BORDER-LEFT-STYLE: 5px;
+	BORDER-BOTTOM-STYLE: none
+}
+
+DIV#source A {
+	COLOR: green
+}
+
+DIV#footer {
+	PADDING-RIGHT: 3px;
+	BORDER-TOP: #eee 1px solid;
+	PADDING-LEFT: 3px;
+	FONT-SIZE: 11px;
+	PADDING-BOTTOM: 3px;
+	PADDING-TOP: 3px;
+	TEXT-ALIGN: center
+}
+
+DIV#footer A {
+	COLOR: #999;
+	FONT-FAMILY: tahoma, arial, sans-serif;
+	TEXT-DECORATION: none
+}
+
+PRE {
+	BORDER-RIGHT: #999999 1px solid;
+	PADDING-RIGHT: 5px;
+	BORDER-TOP: #999999 1px solid;
+	PADDING-LEFT: 7px;
+	FONT-SIZE: 12px;
+	BACKGROUND: #ffffdd;
+	PADDING-BOTTOM: 5px;
+	BORDER-LEFT: #999999 1px solid;
+	COLOR: #000000;
+	LINE-HEIGHT: normal;
+	PADDING-TOP: 5px;
+	BORDER-BOTTOM: #999999 1px solid
+}
+
+DIV.dynamicMenu {
+	LEFT: 0px;
+	POSITION: relative
+}
+
+DIV.tree {
+	PADDING-RIGHT: 10px;
+	PADDING-LEFT: 10px;
+	PADDING-BOTTOM: 10px;
+	PADDING-TOP: 10px
+}
+
+div {
+	font-size: 100%;
+	font-family: verdana, helvetica, arial, sans-serif;
+}
+
+/* menu horizontal */
+.menuhoriz {
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-weight: bold;
+	font-size: 80%;
+	padding: 3px;
+}
+
+/* Fonctions non prises en charge par Netscape 4.x - N4 hack  */ /*/*/
+.menuhoriz a {
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-weight: bold;
+	font-size: 80%;
+	text-decoration: none;
+	color: #696969;
+	margin: 0px 5px 0px 5px;
+	background: #FFF;
+	padding: 3px;
+}
+
+.menuhoriz a:hover {
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-weight: bold;
+	font-size: 80%;
+	text-decoration: none;
+	color: #000;
+	margin: 0px 5px 0px 5px;
+	background: #C0C0C0;
+	padding: 3px;
+}
+
+.mbutton-1 {
+	background-color: #00845E;
+	font-weight: bold;
+	font-size: 60%;
+	font-family: "Trebuchet MS", Trebuchet, verdana, arial, sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	width: 60px;
+	height: 10px;
+	letter-spacing: 1px;
+}
+
+.abutton-1 {
+	color: white;
+	text-decoration: none;
+}
+
+/* menu-client */
+.menu-1 {
+	display: block;
+	border: solid 2px #FF9966;
+	width: 65px;
+	text-align: center;
+}
+
+/* menu-prof */
+.menu-2 {
+	display: block;
+	border: solid 2px #EC9797;
+}
+
+/* menu-carte */
+.menu-3 {
+	display: block;
+	border: solid 2px #89cd00;
+}
+
+/* menu-justif */
+.menu-4 {
+	display: block;
+	border: solid 2px #00c0a0;
+}
+
+/* menu-materiel */
+.menu-5 {
+	display: block;
+	border: solid 2px #0099CC;
+}
+
+/* menu-credit */
+.menu-6 {
+	display: block;
+	border: solid 2px #33CCFF;
+}
+
+/* menu-revenus */
+.menu-7 {
+	display: block;
+	border: solid 2px #52BCD3;
+}
+
+/* menu-banque */
+.menu-8 {
+	display: block;
+	border: solid 2px #4086B2;
+}
+
+/* menu-carte foulee */
+.menu-9 {
+	display: block;
+	border: solid 2px #CC99FF;
+}
+
+/* menu-off */
+.menu-off {
+	font-weight: bold;
+	font-size: 80%;
+	text-decoration: none;
+	color: #000;
+	background: #e5efce;
+	border: solid 2px #fff;
+}
+
+/* Fonctions non prises en charge par Netscape 4.x - N4 hack  */ /*/*/
+.menu-off {
+	display: block;
+	padding: 3px;
+	margin: 0px 5px 0px 5px;
+}
+
+/* dossier de M. ... */
+.jsptitle {
+	font-weight: bold;
+	font-size: 70%;
+	color: #009776;
+	font-family: verdana, helvetica, arial, sans-serif;
+	padding: 5px;
+	display: block;
+	text-align: right;
+}
+
+/* titres de rubriques */
+.legendnormal {
+	color: #fff;
+	background-color: #00845E;
+	font-weight: bold;
+	font-size: 70%;
+	font-family: "Trebuchet MS", Trebuchet, verdana, arial, sans-serif;
+	text-align: left;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+/* Fonctions non prises en charge par Netscape 4.x - N4 hack  */ /*/*/
+.legendnormal {
+	margin: 5px 3px 5px 3px;
+	padding: 1px 5px 1px 5px;
+}
+
+/* sous-titres de rubriques */
+.legend {
+	font-weight: bold;
+	font-size: 70%;
+	font-family: "Trebuchet MS", Trebuchet, verdana, arial, sans-serif;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+/* fond fieldset */
+fieldset {
+	background-color: #fff;
+	border: solid 1px #C0C0C0;
+}
+
+/* titres items */
+.label { /*font-size: 70%;*/
+	font-family: verdana, helvetica, arial, sans-serif;
+}
+
+/* added by tlw to display input values */
+.label_value { /*font-size: 80%;*/
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-weight: bold;
+}
+
+/* champs saisie */
+input {
+	font-size: 100%;
+	font-family: verdana, helvetica, arial, sans-serif;
+}
+
+.radioapp {
+	font-size: 70%;
+	font-family: verdana, helvetica, arial, sans-serif;
+}
+
+.inputlist {
+	font-size: 70%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	width: 500px;
+}
+
+.textdroite {
+	font-size: 70%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	text-align: right;
+}
+
+.input {
+	font-size: 70%;
+	font-family: verdana, helvetica, arial, sans-serif;
+}
+
+/* Fonctions non prises en charge par Netscape 4.x - N4 hack  */ /*/*/
+input {
+	border: solid 1px #C0C0C0;
+	padding: 1px;
+}
+
+.testmode {
+	font-size: 100%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+}
+
+/* messages aide */
+.helpmessage {
+	font-size: 70%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-style: italic;
+}
+
+.hintmessage {
+	font-size: 80%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-weight: normal;
+}
+
+/* messages erreur */
+.errormessage {
+	color: #cc3300;
+	font-size: 70%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-weight: bold;
+}
+
+/* choix sommaires */
+.menuitem a {
+	font-size: 70%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	text-decoration: none;
+}
+
+.menuitem1 a {
+	font-size: 70%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	text-decoration: none;
+}
+
+/* Fonctions non prises en charge par Netscape 4.x - N4 hack  */ /*/*/
+.menuitem a {
+	color: #137A4F;
+	padding: 5px 3px 5px 3px;
+	border: 2px outset #c0c0c0;
+	width: 370px;
+	text-decoration: none;
+}
+
+.menuitem1 a {
+	color: #999999;
+	padding: 5px 3px 5px 3px;
+	border: 2px outset #c0c0c0;
+	width: 370px;
+	text-decoration: none;
+}
+
+.menuitem a:hover {
+	background-color: #00845E;
+	border: 2px inset #c0c0c0;
+	color: #fff;
+}
+
+/* Styles des bulles d'aide */
+.borderhelp {
+	background-color: #696969;
+}
+
+.helptext {
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-size: 8pt;
+	background-color: #E5EFCE;
+}
+
+.tableitemgreen {
+	background-color: #00845E;
+	font-weight: bold;
+	font-size: 70%;
+	font-family: "Trebuchet MS", Trebuchet, verdana, arial, sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #ffffff;
+}
+
+.menuitem3 a {
+	font-size: 80%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	text-decoration: none;
+}
+
+.menuitem3 a {
+	color: #137A4F;
+	padding: 5px 3px 5px 3px;
+	border: 1px;
+	width: 100%;
+	text-decoration: none;
+}
+
+.menuitem3 a:hover {
+	background-color: #00845E;
+	border: 0px inset #c0c0c0;
+	color: #fff;
+}
+
+.tableitemred {
+	background-color: #ff0000;
+	font-weight: bold;
+	font-size: 70%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-family: "Trebuchet MS", Trebuchet, verdana, arial, sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #ffffff;
+}
+
+.note {
+	font-size: 60%;
+	font-family: verdana, helvetica, arial, sans-serif;
+	text-align: center;
+	text-valign: middle;
+	color: red;
+}
+
+.logo {
+	float:left;
+	z-index:1;
+	PADDING-TOP:27px;
+	PADDING-LEFT:2px;
+}

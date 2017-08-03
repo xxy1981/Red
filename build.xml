@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Red" basedir="." default="dist">
+
+	<property file="${basedir}/build.properties" />
+	<!--User local-->
+
+	<!--  Attributs globaux   -->
+	<property name="project.home" location="." />
+	<property name="src.dir" location="src" />
+	<property name="project.name" value="Red" />
+	<property name="app.name" value="Red" />
+	<property name="build.home" value="build" />
+	<property name="generated.dir" value="build/gen-src" />
+	<property name="javadoc.dir" value="javadoc" />
+	<property name="lib.home" value="lib" />
+
+	<!-- compilation options -->
+	<property name="debug" value="true" />
+	<property name="deprecation" value="false" />
+	<property name="optimize" value="true" />
+
+	<property name="file.name.int" value="${app.name}-${app.version}R${build.number}-INT" />
+	<property name="file.name.re" value="${app.name}-${app.version}R${build.number}-RE" />
+	<property name="file.name.ru" value="${app.name}-${app.version}R${build.number}-RU" />
+
+	<path id="classpath.compile">
+		<pathelement location="${build.home}/classes" />
+		<fileset dir="${lib.home}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<target name="clean">
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${build.home}" />
+		</delete>
+	</target>
+
+	<target name="init" depends="clean">
+		<echo>using ${java.home}</echo>
+		<echo>project home ${project.home}</echo>
+		<mkdir dir="${build.home}" />
+		<mkdir dir="${generated.dir}" />
+		<mkdir dir="${build.home}/classes" />
+		<mkdir dir="${build.home}/web" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="src" destdir="${build.home}/classes" encoding="UTF-8" debug="${debug}" deprecation="${deprecation}" optimize="${optimize}">
+			<classpath refid="classpath.compile" />
+		</javac>
+		<copy todir="${build.home}/classes">
+			<fileset dir="src">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+				<include name="**/*.conf" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="dist" depends="compile">
+		<copy todir="${build.home}/web">
+			<fileset dir="${project.home}/web">
+				<exclude name="**/nciic.wsdl" />
+			</fileset>
+		</copy>
+		<copy todir="${build.home}/web/WEB-INF/lib">
+			<fileset dir="${project.home}/lib/commons">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${project.home}/lib/log4j">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${project.home}/lib/quartz">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${project.home}/lib/spring">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${project.home}/lib/struts">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${project.home}/lib/sql">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${project.home}/lib/json">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${project.home}/lib/okhttp">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${project.home}/lib/httpclient">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${project.home}/lib/j2ee">
+				<include name="**/jstl.jar" />
+				<include name="**/standard.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${build.home}/web/WEB-INF/classes">
+			<fileset dir="${project.home}/src">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+				<include name="**/*.conf" />
+			</fileset>
+		</copy>
+		<war destfile="${build.home}/Red.war" webxml="${build.home}/web/WEB-INF/web.xml">
+			<fileset dir="${build.home}/web">
+			</fileset>
+		</war>
+	</target>
+</project>
+
