@@ -43,10 +43,16 @@
 					<input type="button" value="本地100" style="width:55px;height:18;" onclick="javascript:window.location='${ctxPath}/refresh.do?action=local100'">
 				</td>
 				<td align="right" width="5%">
-					<input type="button" value="下载50" style="width:55px;height:18;" onclick="javascript:window.location='${ctxPath}/refresh.do?action=download50'">
+					<input type="button" value="下载均价" style="width:55px;height:18;" onclick="javascript:window.location='${ctxPath}/refresh.do?action=downloadJj'">
 				</td>
 				<td align="right" width="5%">
-					<input type="button" value="下载100" style="width:55px;height:18;" onclick="javascript:window.location='${ctxPath}/refresh.do?action=download100'">
+					<input type="button" value="下载持强"  style="width:55px;height:18;" onclick="javascript:window.location='${ctxPath}/refresh.do?action=downloadCq'">
+				</td>
+				<td align="right" width="5%">
+					<input type="button" value="下载扩展"  style="width:55px;height:18;" onclick="javascript:window.location='${ctxPath}/refresh.do?action=downloadExternal'">
+				</td>
+				<td align="right" width="5%">
+					<input type="button" value="下载均差"  style="width:55px;height:18;" onclick="javascript:window.location='${ctxPath}/refresh.do?action=downloadExternalJc'">
 				</td>
 				</c:if>
 				<td align="right" width="5%">

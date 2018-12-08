@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -902,7 +903,8 @@ public class StockHelper implements StockWebsiteConstants {
 		StockTencent stock = null;
 		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
 			stock = entry.getValue();
-			if (stock.getDoneQuantity() == 0 || stock.getZf() < 0
+			//if (stock.getDoneQuantity() == 0 || stock.getZf() < 0
+			if (stock.getDoneQuantity() == 0 || stock.getZf() < 1.8
 					|| stock.getUpJjTimes() < stock.getUpdateSum()/3
 					|| stock.getCloseToday() < stock.getJj()
 					|| stock.getCloseYesterday() <= 0
@@ -934,7 +936,84 @@ public class StockHelper implements StockWebsiteConstants {
 		DataInputStream in = null; //输入流
         ServletOutputStream out = null; //输出流
 		response.setContentType("text/plain; charset=UTF-8");
-        response.setHeader("Content-disposition", "attachment; filename=ZXG.txt");
+        //response.setHeader("Content-disposition", "attachment; filename=ZXG.txt");
+        response.setHeader("Content-disposition", "attachment; filename=ZXG.EBK");
+        
+        try {
+			in =  new DataInputStream(new ByteArrayInputStream(sb.toString().getBytes())); 
+			out = response.getOutputStream();
+	        out.flush();
+	        int aRead = 0;
+	        while((aRead = in.read()) != -1 & in != null)
+	        {
+	        	out.write(aRead);
+	        }
+	      	out.flush();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+            try{
+            	in.close();
+                out.close();
+            }
+            catch(Throwable e){
+            	e.printStackTrace();
+            }
+        }
+	}
+	
+
+	
+	/**
+	 * 下载自选股(靠近均价)
+	 * @param response
+	 * @param number
+	 */
+	@SuppressWarnings("unchecked")
+	public static void doDownloadZxgJj(HttpServletResponse response, int number) {
+		Map<String, StockTencent> map = StockCache.getStockMap();
+
+		List<StockTencent> list = new ArrayList<StockTencent>();
+		StockTencent stock = null;
+		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
+			stock = entry.getValue();
+			if (stock.getDoneQuantity() == 0 || stock.getZf() < 0
+					|| stock.getZfC() >= 1
+					|| stock.getUpJjTimes() < stock.getUpdateSum()/3
+					|| stock.getCloseToday() < stock.getJj()
+					|| stock.getCloseYesterday() <= 0
+					|| stock.getName().contains("S")
+					|| stock.getLtsz() > ZXG_LTSZ
+					|| stock.getLb() < ZXG_LB) {
+				continue;
+			}
+			list.add(stock);
+		}
+
+		CompoundComparator cc = new CompoundComparator();
+		cc.addComparator(new StockStrongComparator(),true);
+		cc.addComparator(new StockComparator(),true);
+		
+		Collections.sort(list, cc);
+
+		if(list.size() > number){
+			list = list.subList(0, number);
+		}else{
+			list = list.subList(0, list.size());
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		for(StockTencent s : list){
+			sb.append(s.getCode().replaceAll("sh", "1").replaceAll("sz", "0")).append("\r\n");
+		}
+		
+		DataInputStream in = null; //输入流
+        ServletOutputStream out = null; //输出流
+		response.setContentType("text/plain; charset=UTF-8");
+        //response.setHeader("Content-disposition", "attachment; filename=ZXG.txt");
+        response.setHeader("Content-disposition", "attachment; filename=ZXG.EBK");
         
         try {
 			in =  new DataInputStream(new ByteArrayInputStream(sb.toString().getBytes())); 
@@ -1031,6 +1110,117 @@ public class StockHelper implements StockWebsiteConstants {
 			e.printStackTrace();
 			return 0;
 		}
+	}
+	
+	/**
+	 * 本地写自定义数据
+	 * @param number
+	 */
+	public static void doLocalWriteExternalFile() {
+		Map<String, StockTencent> map = StockCache.getStockMap();
+
+		StringBuffer sb = new StringBuffer();
+		StockTencent stock = null;
+		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
+			stock = entry.getValue();
+			sb.append(stock.getCode().startsWith("sh")?"1":"0").append("|").append(stock.getId()).append("|").append("1").append("|").append("JJCQ").append("|").append(stock.getUpJjTimes()).append("\r\n");
+			sb.append(stock.getCode().startsWith("sh")?"1":"0").append("|").append(stock.getId()).append("|").append("2").append("|").append("JC").append("|").append(stock.getZfC()).append("\r\n");
+		}
+
+		FileUtil.writeFile(sb.toString(), "UTF-8", EXTERNAL_FILE_DATA);
+		new File(EXTERNAL_FILE_CONF).setLastModified(System.currentTimeMillis());
+	}
+	
+	/**
+	 * 下载所有均价持强数据
+	 * @param response
+	 * @param number
+	 */
+	public static void doDownloadExternal(HttpServletResponse response) {
+		Map<String, StockTencent> map = StockCache.getStockMap();
+
+		StringBuffer sb = new StringBuffer();
+		StockTencent stock = null;
+		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
+			stock = entry.getValue();
+			sb.append(stock.getCode().startsWith("sh")?"1":"0").append("|").append(stock.getId()).append("|").append("JJCQ").append("|").append(stock.getUpJjTimes()).append("\r\n");
+		}
+		
+		DataInputStream in = null; //输入流
+        ServletOutputStream out = null; //输出流
+		response.setContentType("text/plain; charset=UTF-8");
+        response.setHeader("Content-disposition", "attachment; filename=extern.txt");
+        
+        try {
+			in =  new DataInputStream(new ByteArrayInputStream(sb.toString().getBytes())); 
+			out = response.getOutputStream();
+	        out.flush();
+	        int aRead = 0;
+	        while((aRead = in.read()) != -1 & in != null)
+	        {
+	        	out.write(aRead);
+	        }
+	      	out.flush();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+            try{
+            	in.close();
+                out.close();
+            }
+            catch(Throwable e){
+            	e.printStackTrace();
+            }
+        }
+	}
+	
+
+	
+	/**
+	 * 下载所有均价持强数据
+	 * @param response
+	 * @param number
+	 */
+	public static void doDownloadExternalJc(HttpServletResponse response) {
+		Map<String, StockTencent> map = StockCache.getStockMap();
+
+		StringBuffer sb = new StringBuffer();
+		StockTencent stock = null;
+		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
+			stock = entry.getValue();
+			sb.append(stock.getCode().startsWith("sh")?"1":"0").append("|").append(stock.getId()).append("|").append("JC").append("|").append(stock.getZfC()).append("\r\n");
+		}
+		
+		DataInputStream in = null; //输入流
+        ServletOutputStream out = null; //输出流
+		response.setContentType("text/plain; charset=UTF-8");
+        response.setHeader("Content-disposition", "attachment; filename=extern_jc.txt");
+        
+        try {
+			in =  new DataInputStream(new ByteArrayInputStream(sb.toString().getBytes())); 
+			out = response.getOutputStream();
+	        out.flush();
+	        int aRead = 0;
+	        while((aRead = in.read()) != -1 & in != null)
+	        {
+	        	out.write(aRead);
+	        }
+	      	out.flush();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+            try{
+            	in.close();
+                out.close();
+            }
+            catch(Throwable e){
+            	e.printStackTrace();
+            }
+        }
 	}
 
 }

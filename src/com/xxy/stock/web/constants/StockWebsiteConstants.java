@@ -27,5 +27,8 @@ public interface StockWebsiteConstants {
 	public final static int LOCAL_ZXG_NUMBER = PropertiesUtil.getPropertyInt("conf-param.properties", "local.zxg.number");
 	public final static double ZXG_LB = PropertiesUtil.getPropertyDouble("conf-param.properties", "zxg.lb");
 	public final static double ZXG_LTSZ = PropertiesUtil.getPropertyDouble("conf-param.properties", "zxg.ltsz");
+	public final static int DOWNLOAD_NUMBER = PropertiesUtil.getPropertyInt("conf-param.properties", "download.number");
+	public final static String EXTERNAL_FILE_CONF = PropertiesUtil.getPropertyString("conf-param.properties", "external.file.conf");
+	public final static String EXTERNAL_FILE_DATA = PropertiesUtil.getPropertyString("conf-param.properties", "external.file.data");
 
 }

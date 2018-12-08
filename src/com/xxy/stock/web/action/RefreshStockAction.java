@@ -97,10 +97,14 @@ public class RefreshStockAction extends BaseAction implements StockWebsiteConsta
 			return doUploadBlock(mapping, form, request, response);
 		} else if ("downloadBlock".equalsIgnoreCase(action)) {
 			return doDownloadBlock(mapping, form, request, response);
-		} else if ("download50".equalsIgnoreCase(action)) {
-			return doDownloadToTdx(mapping, form, request, response,50);
-		} else if ("download100".equalsIgnoreCase(action)) {
-			return doDownloadToTdx(mapping, form, request, response,100);
+		} else if ("downloadJj".equalsIgnoreCase(action)) {
+			return doDownloadToTdxJj(mapping, form, request, response,50);
+		} else if ("downloadCq".equalsIgnoreCase(action)) {
+			return doDownloadToTdx(mapping, form, request, response,150);
+		} else if ("downloadExternal".equalsIgnoreCase(action)) {
+			return doDownloadToExternal(mapping, form, request, response);
+		} else if ("downloadExternalJc".equalsIgnoreCase(action)) {
+			return doDownloadToExternalJc(mapping, form, request, response);
 		} else if ("local50".equalsIgnoreCase(action)) {
 			return doLocalToTdx(mapping, form, request, response,50);
 		} else if ("local100".equalsIgnoreCase(action)) {
@@ -377,7 +381,20 @@ public class RefreshStockAction extends BaseAction implements StockWebsiteConsta
 	public ActionForward doDownloadToTdx(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response, int number) {
 
-		StockHelper.doDownloadZxg(response, number);
+		//StockHelper.doDownloadZxg(response, number);
+		StockHelper.doDownloadZxg(response, DOWNLOAD_NUMBER);
+
+		// System.out.println("page- refresh success at " + new Date());
+
+		return null;
+
+	}
+	
+	// 下载星宇盯盘的股票前50名靠近均价
+	public ActionForward doDownloadToTdxJj(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response, int number) {
+
+		StockHelper.doDownloadZxgJj(response, number);
 
 		// System.out.println("page- refresh success at " + new Date());
 
@@ -390,7 +407,8 @@ public class RefreshStockAction extends BaseAction implements StockWebsiteConsta
 	public ActionForward doLocalToTdx(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response, int number) {
 
-		StockHelper.doLocalWriteZxgFile(number);
+		//StockHelper.doLocalWriteZxgFile(number);
+		StockHelper.doLocalWriteZxgFile(LOCAL_ZXG_NUMBER);
 
 		// System.out.println("page- refresh success at " + new Date());
 
@@ -502,5 +520,29 @@ public class RefreshStockAction extends BaseAction implements StockWebsiteConsta
         return doRefreshXydp(mapping, form, request, response);
 
     }
+	
+	// 下载星宇盯盘的股票所有均价持强信息到客户端扩展数据
+	public ActionForward doDownloadToExternal(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		StockHelper.doDownloadExternal(response);
+
+		// System.out.println("page- refresh success at " + new Date());
+
+		return null;
+
+	}
+	
+	// 下载星宇盯盘的股票所有均价持强信息到客户端扩展数据
+	public ActionForward doDownloadToExternalJc(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		StockHelper.doDownloadExternalJc(response);
+
+		// System.out.println("page- refresh success at " + new Date());
+
+		return null;
+
+	}
 
 }

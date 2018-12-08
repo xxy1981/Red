@@ -62,6 +62,18 @@
 	</bean>
 	
 	
+	<bean name="jobDetailOfRefreshExternalFile" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="com.xxy.stock.web.job.RefreshExternalFileJob" />
+		<property name="applicationContextJobDataKey" value="applicationContext" />
+	</bean>
+	<bean id="cronTriggerOfRefreshExternalFile" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobDetailOfRefreshExternalFile"/>
+		<!-- run every morning from 9:00 AM to 14:59 PM and interval 2 minute-->
+		<!--property name="cronExpression" value="0 0/2 9-14 * * ?"/-->
+		<property name="cronExpression" value="0 0/1 9-14 * * ?"/>
+	</bean>
+	
+	
 	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
@@ -70,6 +82,7 @@
 				<ref bean="cronTriggerOfRefreshStock" />
 				<ref bean="cronTriggerOfRefreshZxgFile" />
 				<ref bean="cronTriggerOfRefreshRate" />
+				<ref bean="cronTriggerOfRefreshExternalFile" />
 			</list>
 		</property>
 		<property name="schedulerContextAsMap">
