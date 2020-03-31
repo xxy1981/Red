@@ -858,15 +858,24 @@ public class StockHelper implements StockWebsiteConstants {
 		StockTencent stock = null;
 		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
 			stock = entry.getValue();
-			if (stock.getDoneQuantity() == 0 || stock.getZf() < 0
-					|| stock.getUpJjTimes() < stock.getUpdateSum()/3
-					|| stock.getCloseToday() < stock.getJj()
+//			if (stock.getDoneQuantity() == 0 || stock.getZf() < 0
+//					|| stock.getUpJjTimes() < stock.getUpdateSum()/3
+//					|| stock.getCloseToday() < stock.getJj()
+//					|| stock.getCloseYesterday() <= 0
+//					|| stock.getName().contains("S")
+//					|| stock.getLtsz() > ZXG_LTSZ
+//					|| stock.getLb() < ZXG_LB) {
+//				continue;
+//			}
+			
+			if (stock.getDoneQuantity() == 0
+					|| stock.getUpJjTimes() < stock.getUpdateSum()/4
 					|| stock.getCloseYesterday() <= 0
 					|| stock.getName().contains("S")
-					|| stock.getLtsz() > ZXG_LTSZ
-					|| stock.getLb() < ZXG_LB) {
+					|| stock.getLtsz() > ZXG_LTSZ) {
 				continue;
 			}
+			
 			list.add(stock);
 		}
 
