@@ -15,8 +15,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -133,6 +135,9 @@ public class StockHelper implements StockWebsiteConstants {
 	 * 
 	 */
 	public static void refreshStockSina(String stockInfo) {
+		SimpleDateFormat sdf = new SimpleDateFormat("Hmm");
+        int now = Integer.parseInt(sdf.format(new Date()));
+		
 		String[] sparatorList = stockInfo.split(";");	//多个股票数据以分号分隔
 		StringTokenizer st = null;
 		String left = null;
@@ -149,6 +154,11 @@ public class StockHelper implements StockWebsiteConstants {
 		double zf = 0;	//涨幅
 		double zfC = 0;	//涨幅跟均价涨幅差
 		StockTencent stockSina = null;
+		StockTencent stockSina0945 = null;
+		StockTencent stockSina1000 = null;
+		StockTencent stockSina1030 = null;
+		StockTencent stockSina1100 = null;
+		StockTencent stockSina1130 = null;
 		
 		try {
 			for (String str : sparatorList) {
@@ -230,6 +240,9 @@ public class StockHelper implements StockWebsiteConstants {
 						stockSina.setJinBuy(toDouble(data[6]));
 						stockSina.setJinSell(toDouble(data[7]));
 						stockSina.setDoneQuantity(doneQuantity.intValue());
+						if(now < 933) {
+							stockSina.setDoneQuantity933(doneQuantity.intValue());
+						}
 						stockSina.setDoneAmount(doneAmount.doubleValue());
 						stockSina.setBuy1Quantity(toInt(data[10]));
 						stockSina.setBuy1Price(toDouble(data[11]));
@@ -303,6 +316,129 @@ public class StockHelper implements StockWebsiteConstants {
 					
 					StockCache.putStock(code, stockSina);
 					//System.out.println(str);
+					
+					StockCache.putStock0930(code, stockSina);
+					
+					if(now >= 945) {
+						stockSina0945 = StockCache.getStock0945(code);
+						if (stockSina0945 == null) {
+							stockSina0945 = new StockTencent(code,right,"black",0);
+						}
+						
+						//判断价格是否一直处于均价线上运行
+						if (xj < jj) {//价格跌破均价
+							stockSina0945.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina0945.setUpJjTimes(stockSina0945.getUpJjTimes() - 1);
+							}
+						} else {//价格处于均价线上
+							stockSina0945.setAlwaysStrongFlag(0);//价格一直处于均价线上
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina0945.setUpJjTimes(stockSina0945.getUpJjTimes() + 1);
+							}
+						}
+						int upJjTimes = stockSina0945.getUpJjTimes();
+						stockSina0945 = stockSina;
+						stockSina0945.setUpJjTimes(upJjTimes);
+						StockCache.putStock0945(code, stockSina0945);
+					}
+					
+					if(now >= 1000) {
+						stockSina1000 = StockCache.getStock1000(code);
+						if (stockSina1000 == null) {
+							stockSina1000 = new StockTencent(code,right,"black",0);
+						}
+						
+						//判断价格是否一直处于均价线上运行
+						if (xj < jj) {//价格跌破均价
+							stockSina1000.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina1000.setUpJjTimes(stockSina1000.getUpJjTimes() - 1);
+							}
+						} else {//价格处于均价线上
+							stockSina1000.setAlwaysStrongFlag(0);//价格一直处于均价线上
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina1000.setUpJjTimes(stockSina1000.getUpJjTimes() + 1);
+							}
+						}
+						int upJjTimes = stockSina1000.getUpJjTimes();
+						stockSina1000 = stockSina;
+						stockSina1000.setUpJjTimes(upJjTimes);
+						StockCache.putStock1000(code, stockSina1000);
+					}
+					
+					if(now >= 1030) {
+						stockSina1030 = StockCache.getStock1030(code);
+						if (stockSina1030 == null) {
+							stockSina1030 = new StockTencent(code,right,"black",0);
+						}
+						
+						//判断价格是否一直处于均价线上运行
+						if (xj < jj) {//价格跌破均价
+							stockSina1030.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina1030.setUpJjTimes(stockSina1030.getUpJjTimes() - 1);
+							}
+						} else {//价格处于均价线上
+							stockSina1030.setAlwaysStrongFlag(0);//价格一直处于均价线上
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina1030.setUpJjTimes(stockSina1030.getUpJjTimes() + 1);
+							}
+						}
+						int upJjTimes = stockSina1030.getUpJjTimes();
+						stockSina1030 = stockSina;
+						stockSina1030.setUpJjTimes(upJjTimes);
+						StockCache.putStock1030(code, stockSina1030);
+					}
+					
+					if(now >= 1100) {
+						stockSina1100 = StockCache.getStock1100(code);
+						if (stockSina1100 == null) {
+							stockSina1100 = new StockTencent(code,right,"black",0);
+						}
+						
+						//判断价格是否一直处于均价线上运行
+						if (xj < jj) {//价格跌破均价
+							stockSina1100.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina1100.setUpJjTimes(stockSina1100.getUpJjTimes() - 1);
+							}
+						} else {//价格处于均价线上
+							stockSina1100.setAlwaysStrongFlag(0);//价格一直处于均价线上
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina1100.setUpJjTimes(stockSina1100.getUpJjTimes() + 1);
+							}
+						}
+						int upJjTimes = stockSina1100.getUpJjTimes();
+						stockSina1100 = stockSina;
+						stockSina1100.setUpJjTimes(upJjTimes);
+						StockCache.putStock1100(code, stockSina1100);
+					}
+					
+					if(now >= 1130) {
+						stockSina1130 = StockCache.getStock1130(code);
+						if (stockSina1130 == null) {
+							stockSina1130 = new StockTencent(code,right,"black",0);
+						}
+						
+						//判断价格是否一直处于均价线上运行
+						if (xj < jj) {//价格跌破均价
+							stockSina1130.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina1130.setUpJjTimes(stockSina1130.getUpJjTimes() - 1);
+							}
+						} else {//价格处于均价线上
+							stockSina1130.setAlwaysStrongFlag(0);//价格一直处于均价线上
+							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
+								stockSina1130.setUpJjTimes(stockSina1130.getUpJjTimes() + 1);
+							}
+						}
+						int upJjTimes = stockSina1130.getUpJjTimes();
+						stockSina1130 = stockSina;
+						stockSina1130.setUpJjTimes(upJjTimes);
+						StockCache.putStock1130(code, stockSina1130);
+					}
+					
 				}
 			}
 		} catch (Exception e) {
@@ -897,6 +1033,8 @@ public class StockHelper implements StockWebsiteConstants {
 		}
 		FileUtil.writeFile(sb.toString(), "UTF-8", LOCAL_ZXG_FILE);
 		//FileUtil.writeFile(sb.toString(), "UTF-8", LOCAL_ZXG_FILE2);
+		
+		doLocalWriteZxgFile0945(null, number);
 	}
 	
 	/**
@@ -1230,6 +1368,90 @@ public class StockHelper implements StockWebsiteConstants {
             	e.printStackTrace();
             }
         }
+	}
+	
+	public static void doLocalWriteZxgFile0945(String filepath, int number) {
+		doLocalWriteZxgFile0945AndVol(StockCache.getStockMap0930(), LOCAL_ZXG_FILE0930, 100);
+		doLocalWriteZxgFile0945(StockCache.getStockMap0945(), LOCAL_ZXG_FILE0945, 100);
+		doLocalWriteZxgFile0945(StockCache.getStockMap1000(), LOCAL_ZXG_FILE1000, 100);
+		doLocalWriteZxgFile0945(StockCache.getStockMap1030(), LOCAL_ZXG_FILE1030, 100);
+		doLocalWriteZxgFile0945(StockCache.getStockMap1100(), LOCAL_ZXG_FILE1100, 100);
+		doLocalWriteZxgFile0945(StockCache.getStockMap1130(), LOCAL_ZXG_FILE1130, 100);
+	}
+	
+	public static void doLocalWriteZxgFile0945(Map<String, StockTencent> map, String filePath, int number) {
+		List<StockTencent> list = new ArrayList<StockTencent>();
+		StockTencent stock = null;
+		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
+			stock = entry.getValue();			
+			if (stock.getDoneQuantity() == 0
+					|| stock.getUpJjTimes() < stock.getUpdateSum()/4
+					|| stock.getCloseYesterday() <= 0
+					|| stock.getName().contains("S")
+					|| stock.getLtsz() > ZXG_LTSZ
+					|| stock.getZf() > 7) {
+				continue;
+			}
+			
+			list.add(stock);
+		}
+
+		CompoundComparator cc = new CompoundComparator();
+		cc.addComparator(new StockStrongComparator(),true);
+		cc.addComparator(new StockComparator(),true);
+		
+		Collections.sort(list, cc);
+
+		if(list.size() > number){
+			list = list.subList(0, number);
+		}else{
+			list = list.subList(0, list.size());
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		for(StockTencent s : list){
+			sb.append(s.getCode().replaceAll("sh", "1").replaceAll("sz", "0")).append("\r\n");
+		}
+		FileUtil.writeFile(sb.toString(), "UTF-8", filePath);
+	}
+	
+
+	
+	public static void doLocalWriteZxgFile0945AndVol(Map<String, StockTencent> map, String filePath, int number) {
+		List<StockTencent> list = new ArrayList<StockTencent>();
+		StockTencent stock = null;
+		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
+			stock = entry.getValue();			
+			if (stock.getDoneQuantity() == 0
+					|| stock.getUpJjTimes() < stock.getUpdateSum()/4
+					|| stock.getCloseYesterday() <= 0
+					|| stock.getName().contains("S")
+					|| stock.getLtsz() > ZXG_LTSZ
+					|| stock.getZf() > 7
+					|| stock.getDoneQuantity933() > 500000) {
+				continue;
+			}
+			
+			list.add(stock);
+		}
+
+		CompoundComparator cc = new CompoundComparator();
+		cc.addComparator(new StockStrongComparator(),true);
+		cc.addComparator(new StockComparator(),true);
+		
+		Collections.sort(list, cc);
+
+		if(list.size() > number){
+			list = list.subList(0, number);
+		}else{
+			list = list.subList(0, list.size());
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		for(StockTencent s : list){
+			sb.append(s.getCode().replaceAll("sh", "1").replaceAll("sz", "0")).append("\r\n");
+		}
+		FileUtil.writeFile(sb.toString(), "UTF-8", filePath);
 	}
 
 }

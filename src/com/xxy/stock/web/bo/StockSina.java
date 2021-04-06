@@ -65,6 +65,8 @@ public class StockSina implements java.io.Serializable {
 	private String windowColor;    	//缺口颜色
 	private String selectMark;    	//自选股标志
 
+	private int doneQuantity933;    //9:33分前成交的股票数（单位股）
+
 	// Constructors
 
 	/** default constructor */
@@ -541,6 +543,14 @@ public class StockSina implements java.io.Serializable {
 
 	public void setSellSumQuantity(int sellSumQuantity) {
 		this.sellSumQuantity = sellSumQuantity;
+	}
+	
+	public int getDoneQuantity933() {
+		return doneQuantity933;
+	}
+
+	public void setDoneQuantity933(int doneQuantity933) {
+		this.doneQuantity933 = doneQuantity933;
 	}
 	
 }
