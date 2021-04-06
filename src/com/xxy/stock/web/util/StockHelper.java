@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +47,8 @@ import com.xxy.stock.web.bo.StockTencent;
 import com.xxy.stock.web.constants.StockWebsiteConstants;
 
 public class StockHelper implements StockWebsiteConstants {
+	
+	public final static ExecutorService pool = Executors.newCachedThreadPool();
 	
 	/**
 	 * 初始化所有股票实时数据
@@ -154,11 +158,6 @@ public class StockHelper implements StockWebsiteConstants {
 		double zf = 0;	//涨幅
 		double zfC = 0;	//涨幅跟均价涨幅差
 		StockTencent stockSina = null;
-		StockTencent stockSina0945 = null;
-		StockTencent stockSina1000 = null;
-		StockTencent stockSina1030 = null;
-		StockTencent stockSina1100 = null;
-		StockTencent stockSina1130 = null;
 		
 		try {
 			for (String str : sparatorList) {
@@ -317,127 +316,7 @@ public class StockHelper implements StockWebsiteConstants {
 					StockCache.putStock(code, stockSina);
 					//System.out.println(str);
 					
-					StockCache.putStock0930(code, stockSina);
-					
-					if(now >= 945) {
-						stockSina0945 = StockCache.getStock0945(code);
-						if (stockSina0945 == null) {
-							stockSina0945 = new StockTencent(code,right,"black",0);
-						}
-						
-						//判断价格是否一直处于均价线上运行
-						if (xj < jj) {//价格跌破均价
-							stockSina0945.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina0945.setUpJjTimes(stockSina0945.getUpJjTimes() - 1);
-							}
-						} else {//价格处于均价线上
-							stockSina0945.setAlwaysStrongFlag(0);//价格一直处于均价线上
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina0945.setUpJjTimes(stockSina0945.getUpJjTimes() + 1);
-							}
-						}
-						int upJjTimes = stockSina0945.getUpJjTimes();
-						stockSina0945 = stockSina;
-						stockSina0945.setUpJjTimes(upJjTimes);
-						StockCache.putStock0945(code, stockSina0945);
-					}
-					
-					if(now >= 1000) {
-						stockSina1000 = StockCache.getStock1000(code);
-						if (stockSina1000 == null) {
-							stockSina1000 = new StockTencent(code,right,"black",0);
-						}
-						
-						//判断价格是否一直处于均价线上运行
-						if (xj < jj) {//价格跌破均价
-							stockSina1000.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina1000.setUpJjTimes(stockSina1000.getUpJjTimes() - 1);
-							}
-						} else {//价格处于均价线上
-							stockSina1000.setAlwaysStrongFlag(0);//价格一直处于均价线上
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina1000.setUpJjTimes(stockSina1000.getUpJjTimes() + 1);
-							}
-						}
-						int upJjTimes = stockSina1000.getUpJjTimes();
-						stockSina1000 = stockSina;
-						stockSina1000.setUpJjTimes(upJjTimes);
-						StockCache.putStock1000(code, stockSina1000);
-					}
-					
-					if(now >= 1030) {
-						stockSina1030 = StockCache.getStock1030(code);
-						if (stockSina1030 == null) {
-							stockSina1030 = new StockTencent(code,right,"black",0);
-						}
-						
-						//判断价格是否一直处于均价线上运行
-						if (xj < jj) {//价格跌破均价
-							stockSina1030.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina1030.setUpJjTimes(stockSina1030.getUpJjTimes() - 1);
-							}
-						} else {//价格处于均价线上
-							stockSina1030.setAlwaysStrongFlag(0);//价格一直处于均价线上
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina1030.setUpJjTimes(stockSina1030.getUpJjTimes() + 1);
-							}
-						}
-						int upJjTimes = stockSina1030.getUpJjTimes();
-						stockSina1030 = stockSina;
-						stockSina1030.setUpJjTimes(upJjTimes);
-						StockCache.putStock1030(code, stockSina1030);
-					}
-					
-					if(now >= 1100) {
-						stockSina1100 = StockCache.getStock1100(code);
-						if (stockSina1100 == null) {
-							stockSina1100 = new StockTencent(code,right,"black",0);
-						}
-						
-						//判断价格是否一直处于均价线上运行
-						if (xj < jj) {//价格跌破均价
-							stockSina1100.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina1100.setUpJjTimes(stockSina1100.getUpJjTimes() - 1);
-							}
-						} else {//价格处于均价线上
-							stockSina1100.setAlwaysStrongFlag(0);//价格一直处于均价线上
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina1100.setUpJjTimes(stockSina1100.getUpJjTimes() + 1);
-							}
-						}
-						int upJjTimes = stockSina1100.getUpJjTimes();
-						stockSina1100 = stockSina;
-						stockSina1100.setUpJjTimes(upJjTimes);
-						StockCache.putStock1100(code, stockSina1100);
-					}
-					
-					if(now >= 1130) {
-						stockSina1130 = StockCache.getStock1130(code);
-						if (stockSina1130 == null) {
-							stockSina1130 = new StockTencent(code,right,"black",0);
-						}
-						
-						//判断价格是否一直处于均价线上运行
-						if (xj < jj) {//价格跌破均价
-							stockSina1130.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina1130.setUpJjTimes(stockSina1130.getUpJjTimes() - 1);
-							}
-						} else {//价格处于均价线上
-							stockSina1130.setAlwaysStrongFlag(0);//价格一直处于均价线上
-							if(doneQuantity.intValue() != stockSina.getDoneQuantity()){//中途休市排除
-								stockSina1130.setUpJjTimes(stockSina1130.getUpJjTimes() + 1);
-							}
-						}
-						int upJjTimes = stockSina1130.getUpJjTimes();
-						stockSina1130 = stockSina;
-						stockSina1130.setUpJjTimes(upJjTimes);
-						StockCache.putStock1130(code, stockSina1130);
-					}
+					new RefreshExtDataThread(now, stockSina).start();
 					
 				}
 			}
@@ -1034,7 +913,7 @@ public class StockHelper implements StockWebsiteConstants {
 		FileUtil.writeFile(sb.toString(), "UTF-8", LOCAL_ZXG_FILE);
 		//FileUtil.writeFile(sb.toString(), "UTF-8", LOCAL_ZXG_FILE2);
 		
-		doLocalWriteZxgFile0945(null, number);
+		new DownloadExtDataThread().start();
 	}
 	
 	/**
@@ -1370,7 +1249,146 @@ public class StockHelper implements StockWebsiteConstants {
         }
 	}
 	
-	public static void doLocalWriteZxgFile0945(String filepath, int number) {
+	
+
+}
+
+class RefreshExtDataThread extends Thread {
+	
+	private StockTencent stockSina;
+	private int now;
+	
+	public RefreshExtDataThread(int now, StockTencent stockTencent){
+		this.stockSina = stockTencent;
+		this.now = now;
+	}
+	
+	public void run() {
+		try {
+			StockTencent stockSina0945;
+			StockTencent stockSina1000;
+			StockTencent stockSina1030;
+			StockTencent stockSina1100;
+			StockTencent stockSina1130;
+			
+			StockCache.putStock0930(stockSina.getCode(), stockSina);
+			
+			if(now >= 945) {
+				stockSina0945 = StockCache.getStock0945(stockSina.getCode());
+				if (stockSina0945 == null) {
+					stockSina0945 = new StockTencent(stockSina.getCode(), stockSina.getInfo(), "black", 0);
+				}
+				
+				//判断价格是否一直处于均价线上运行
+				if (stockSina.getCloseToday() < stockSina.getJj()) {//价格跌破均价
+					stockSina0945.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+					stockSina0945.setUpJjTimes(stockSina0945.getUpJjTimes() - 1);
+				} else {//价格处于均价线上
+					stockSina0945.setAlwaysStrongFlag(0);//价格一直处于均价线上
+					stockSina0945.setUpJjTimes(stockSina0945.getUpJjTimes() + 1);
+				}
+				int upJjTimes = stockSina0945.getUpJjTimes();
+				stockSina0945 = stockSina;
+				stockSina0945.setUpJjTimes(upJjTimes);
+				StockCache.putStock0945(stockSina.getCode(), stockSina0945);
+			}
+			
+			if(now >= 1000) {
+				stockSina1000 = StockCache.getStock1000(stockSina.getCode());
+				if (stockSina1000 == null) {
+					stockSina1000 = new StockTencent(stockSina.getCode(), stockSina.getInfo(), "black", 0);
+				}
+				
+				//判断价格是否一直处于均价线上运行
+				if (stockSina.getCloseToday() < stockSina.getJj()) {//价格跌破均价
+					stockSina1000.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+					stockSina1000.setUpJjTimes(stockSina1000.getUpJjTimes() - 1);
+				} else {//价格处于均价线上
+					stockSina1000.setAlwaysStrongFlag(0);//价格一直处于均价线上
+					stockSina1000.setUpJjTimes(stockSina1000.getUpJjTimes() + 1);
+				}
+				int upJjTimes = stockSina1000.getUpJjTimes();
+				stockSina1000 = stockSina;
+				stockSina1000.setUpJjTimes(upJjTimes);
+				StockCache.putStock1000(stockSina.getCode(), stockSina1000);
+			}
+			
+			if(now >= 1030) {
+				stockSina1030 = StockCache.getStock1030(stockSina.getCode());
+				if (stockSina1030 == null) {
+					stockSina1030 = new StockTencent(stockSina.getCode(), stockSina.getInfo(), "black", 0);
+				}
+				
+				//判断价格是否一直处于均价线上运行
+				if (stockSina.getCloseToday() < stockSina.getJj()) {//价格跌破均价
+					stockSina1030.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+					stockSina1030.setUpJjTimes(stockSina1030.getUpJjTimes() - 1);
+				} else {//价格处于均价线上
+					stockSina1030.setAlwaysStrongFlag(0);//价格一直处于均价线上
+					stockSina1030.setUpJjTimes(stockSina1030.getUpJjTimes() + 1);
+				}
+				int upJjTimes = stockSina1030.getUpJjTimes();
+				stockSina1030 = stockSina;
+				stockSina1030.setUpJjTimes(upJjTimes);
+				StockCache.putStock1030(stockSina.getCode(), stockSina1030);
+			}
+			
+			if(now >= 1100) {
+				stockSina1100 = StockCache.getStock1100(stockSina.getCode());
+				if (stockSina1100 == null) {
+					stockSina1100 = new StockTencent(stockSina.getCode(), stockSina.getInfo(), "black", 0);
+				}
+				
+				//判断价格是否一直处于均价线上运行
+				if (stockSina.getCloseToday() < stockSina.getJj()) {//价格跌破均价
+					stockSina1100.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+					stockSina1100.setUpJjTimes(stockSina1100.getUpJjTimes() - 1);
+				} else {//价格处于均价线上
+					stockSina1100.setAlwaysStrongFlag(0);//价格一直处于均价线上
+					stockSina1100.setUpJjTimes(stockSina1100.getUpJjTimes() + 1);
+				}
+				int upJjTimes = stockSina1100.getUpJjTimes();
+				stockSina1100 = stockSina;
+				stockSina1100.setUpJjTimes(upJjTimes);
+				StockCache.putStock1100(stockSina.getCode(), stockSina1100);
+			}
+			
+			if(now >= 1130) {
+				stockSina1130 = StockCache.getStock1130(stockSina.getCode());
+				if (stockSina1130 == null) {
+					stockSina1130 = new StockTencent(stockSina.getCode(), stockSina.getInfo(), "black", 0);
+				}
+				
+				//判断价格是否一直处于均价线上运行
+				if (stockSina.getCloseToday() < stockSina.getJj()) {//价格跌破均价
+					stockSina1130.setAlwaysStrongFlag(-1);//价格一旦跌破均价，则不符合一直处于均价线上原则
+					stockSina1130.setUpJjTimes(stockSina1130.getUpJjTimes() - 1);
+				} else {//价格处于均价线上
+					stockSina1130.setAlwaysStrongFlag(0);//价格一直处于均价线上
+					stockSina1130.setUpJjTimes(stockSina1130.getUpJjTimes() + 1);
+				}
+				int upJjTimes = stockSina1130.getUpJjTimes();
+				stockSina1130 = stockSina;
+				stockSina1130.setUpJjTimes(upJjTimes);
+				StockCache.putStock1130(stockSina.getCode(), stockSina1130);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+class DownloadExtDataThread extends Thread implements StockWebsiteConstants {
+	
+	public void run() {
+		try {
+			doLocalWriteZxgFile0945();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void doLocalWriteZxgFile0945() {
 		doLocalWriteZxgFile0945AndVol(StockCache.getStockMap0930(), LOCAL_ZXG_FILE0930, 100);
 		doLocalWriteZxgFile0945(StockCache.getStockMap0945(), LOCAL_ZXG_FILE0945, 100);
 		doLocalWriteZxgFile0945(StockCache.getStockMap1000(), LOCAL_ZXG_FILE1000, 100);
@@ -1385,7 +1403,7 @@ public class StockHelper implements StockWebsiteConstants {
 		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
 			stock = entry.getValue();			
 			if (stock.getDoneQuantity() == 0
-					|| stock.getUpJjTimes() < stock.getUpdateSum()/4
+//					|| stock.getUpJjTimes() < stock.getUpdateSum()/4
 					|| stock.getCloseYesterday() <= 0
 					|| stock.getName().contains("S")
 					|| stock.getLtsz() > ZXG_LTSZ
@@ -1415,15 +1433,13 @@ public class StockHelper implements StockWebsiteConstants {
 		FileUtil.writeFile(sb.toString(), "UTF-8", filePath);
 	}
 	
-
-	
 	public static void doLocalWriteZxgFile0945AndVol(Map<String, StockTencent> map, String filePath, int number) {
 		List<StockTencent> list = new ArrayList<StockTencent>();
 		StockTencent stock = null;
 		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
 			stock = entry.getValue();			
 			if (stock.getDoneQuantity() == 0
-					|| stock.getUpJjTimes() < stock.getUpdateSum()/4
+//					|| stock.getUpJjTimes() < stock.getUpdateSum()/4
 					|| stock.getCloseYesterday() <= 0
 					|| stock.getName().contains("S")
 					|| stock.getLtsz() > ZXG_LTSZ
@@ -1453,5 +1469,4 @@ public class StockHelper implements StockWebsiteConstants {
 		}
 		FileUtil.writeFile(sb.toString(), "UTF-8", filePath);
 	}
-
 }
