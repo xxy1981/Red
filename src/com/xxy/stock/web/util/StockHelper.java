@@ -30,6 +30,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -1288,7 +1289,7 @@ class RefreshExtDataThread extends Thread {
 					stockSina0945.setUpJjTimes(stockSina0945.getUpJjTimes() + 1);
 				}
 				int upJjTimes = stockSina0945.getUpJjTimes();
-				stockSina0945 = stockSina;
+				BeanUtils.copyProperties(stockSina0945, stockSina);
 				stockSina0945.setUpJjTimes(upJjTimes);
 				StockCache.putStock0945(stockSina.getCode(), stockSina0945);
 			}
@@ -1308,7 +1309,7 @@ class RefreshExtDataThread extends Thread {
 					stockSina1000.setUpJjTimes(stockSina1000.getUpJjTimes() + 1);
 				}
 				int upJjTimes = stockSina1000.getUpJjTimes();
-				stockSina1000 = stockSina;
+				BeanUtils.copyProperties(stockSina1000, stockSina);
 				stockSina1000.setUpJjTimes(upJjTimes);
 				StockCache.putStock1000(stockSina.getCode(), stockSina1000);
 			}
@@ -1328,7 +1329,7 @@ class RefreshExtDataThread extends Thread {
 					stockSina1030.setUpJjTimes(stockSina1030.getUpJjTimes() + 1);
 				}
 				int upJjTimes = stockSina1030.getUpJjTimes();
-				stockSina1030 = stockSina;
+				BeanUtils.copyProperties(stockSina1030, stockSina);
 				stockSina1030.setUpJjTimes(upJjTimes);
 				StockCache.putStock1030(stockSina.getCode(), stockSina1030);
 			}
@@ -1348,7 +1349,7 @@ class RefreshExtDataThread extends Thread {
 					stockSina1100.setUpJjTimes(stockSina1100.getUpJjTimes() + 1);
 				}
 				int upJjTimes = stockSina1100.getUpJjTimes();
-				stockSina1100 = stockSina;
+				BeanUtils.copyProperties(stockSina1100, stockSina);
 				stockSina1100.setUpJjTimes(upJjTimes);
 				StockCache.putStock1100(stockSina.getCode(), stockSina1100);
 			}
@@ -1368,7 +1369,7 @@ class RefreshExtDataThread extends Thread {
 					stockSina1130.setUpJjTimes(stockSina1130.getUpJjTimes() + 1);
 				}
 				int upJjTimes = stockSina1130.getUpJjTimes();
-				stockSina1130 = stockSina;
+				BeanUtils.copyProperties(stockSina1130, stockSina);
 				stockSina1130.setUpJjTimes(upJjTimes);
 				StockCache.putStock1130(stockSina.getCode(), stockSina1130);
 			}
