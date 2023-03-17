@@ -52,7 +52,7 @@ public class ClientHelper implements StockWebsiteConstants{
             okHttpClient = OkHttpFactory.getNewOkHttpClient();
         }
         
-        Request request = new Request.Builder().url(url).addHeader("Connection", "close").build();
+        Request request = new Request.Builder().url(url).addHeader("Connection", "close").addHeader("Referer", "https://finance.sina.com.cn").build();
         try (Response response = okHttpClient.newCall(request).execute()) {
             return response.body().string().replaceAll("pv_none_match=1", "");
         } catch (IOException e) {
@@ -72,6 +72,7 @@ public class ClientHelper implements StockWebsiteConstants{
         }
 
         HttpGet httpGet = new HttpGet(url);
+        httpGet.addHeader("Referer", "https://finance.sina.com.cn");
 
         try {
             response = client.execute(httpGet);
