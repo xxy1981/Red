@@ -310,6 +310,26 @@ public class StockHelper implements StockWebsiteConstants {
 						}else{
 							stockSina.setZfCColor("green");
 						}
+						
+						if(stockSina.getUpdateSum() == 17) {
+							stockSina.setV5(doneQuantity.intValue());
+						}
+						if(stockSina.getUpdateSum() == 27) {
+							stockSina.setV10(doneQuantity.intValue());
+						}
+						if(stockSina.getUpdateSum() == 37) {
+							stockSina.setV15(doneQuantity.intValue());
+						}
+						if(stockSina.getUpdateSum() == 47) {
+							stockSina.setV20(doneQuantity.intValue());
+						}
+						if(stockSina.getUpdateSum() == 57) {
+							stockSina.setV25(doneQuantity.intValue());
+						}
+						if(stockSina.getUpdateSum() == 67) {
+							stockSina.setV30(doneQuantity.intValue());
+						}
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -544,6 +564,26 @@ public class StockHelper implements StockWebsiteConstants {
 						}else{
 							stockTencent.setZfCColor("green");
 						}
+						
+						if(stockTencent.getUpdateSum() == 17) {
+							stockTencent.setV5(doneQuantity.intValue());
+						}
+						if(stockTencent.getUpdateSum() == 27) {
+							stockTencent.setV10(doneQuantity.intValue());
+						}
+						if(stockTencent.getUpdateSum() == 37) {
+							stockTencent.setV15(doneQuantity.intValue());
+						}
+						if(stockTencent.getUpdateSum() == 47) {
+							stockTencent.setV20(doneQuantity.intValue());
+						}
+						if(stockTencent.getUpdateSum() == 57) {
+							stockTencent.setV25(doneQuantity.intValue());
+						}
+						if(stockTencent.getUpdateSum() == 67) {
+							stockTencent.setV30(doneQuantity.intValue());
+						}
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1396,6 +1436,8 @@ class DownloadExtDataThread extends Thread implements StockWebsiteConstants {
 		doLocalWriteZxgFile0945(StockCache.getStockMap1030(), LOCAL_ZXG_FILE1030, 100);
 		doLocalWriteZxgFile0945(StockCache.getStockMap1100(), LOCAL_ZXG_FILE1100, 100);
 		doLocalWriteZxgFile0945(StockCache.getStockMap1130(), LOCAL_ZXG_FILE1130, 100);
+		doLocalWriteMvFileV5(StockCache.getStockMap(), LOCAL_MV_FILEV5, 200);
+		doLocalWriteMvFileV15(StockCache.getStockMap(), LOCAL_MV_FILEV15, 200);
 	}
 	
 	public static void doLocalWriteZxgFile0945(Map<String, StockTencent> map, String filePath, int number) {
@@ -1446,6 +1488,98 @@ class DownloadExtDataThread extends Thread implements StockWebsiteConstants {
 					|| stock.getLtsz() > ZXG_LTSZ
 					|| stock.getZf() > 7
 					|| stock.getDoneQuantity933() > 500000) {
+				continue;
+			}
+			
+			list.add(stock);
+		}
+
+		CompoundComparator cc = new CompoundComparator();
+		cc.addComparator(new StockStrongComparator(),true);
+		cc.addComparator(new StockComparator(),true);
+		
+		Collections.sort(list, cc);
+
+		if(list.size() > number){
+			list = list.subList(0, number);
+		}else{
+			list = list.subList(0, list.size());
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		for(StockTencent s : list){
+			sb.append(s.getCode().replaceAll("sh", "1").replaceAll("sz", "0")).append("\r\n");
+		}
+		FileUtil.writeFile(sb.toString(), "UTF-8", filePath);
+	}
+	
+	/**
+	 * 前10分钟放量（开盘票第2个5分钟的量大于开盘第一个5分钟的量）
+	 * @param map
+	 * @param filePath
+	 * @param number
+	 */
+	public static void doLocalWriteMvFileV5(Map<String, StockTencent> map, String filePath, int number) {
+		SimpleDateFormat sdfHmm = new SimpleDateFormat("Hmm");
+        int now = Integer.parseInt(sdfHmm.format(new Date()));
+        if(now > 941) {
+        	return;
+        }
+        
+		List<StockTencent> list = new ArrayList<StockTencent>();
+		StockTencent stock = null;
+		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
+			stock = entry.getValue();			
+			if (stock.getDoneQuantity() == 0
+//					|| stock.getUpJjTimes() < stock.getUpdateSum()/4
+					|| stock.getCloseYesterday() <= 0
+					|| stock.getV5() > (stock.getV10() - stock.getV5())) {
+				continue;
+			}
+			
+			list.add(stock);
+		}
+
+		CompoundComparator cc = new CompoundComparator();
+		cc.addComparator(new StockStrongComparator(),true);
+		cc.addComparator(new StockComparator(),true);
+		
+		Collections.sort(list, cc);
+
+		if(list.size() > number){
+			list = list.subList(0, number);
+		}else{
+			list = list.subList(0, list.size());
+		}
+		
+		StringBuffer sb = new StringBuffer();
+		for(StockTencent s : list){
+			sb.append(s.getCode().replaceAll("sh", "1").replaceAll("sz", "0")).append("\r\n");
+		}
+		FileUtil.writeFile(sb.toString(), "UTF-8", filePath);
+	}
+	
+	/**
+	 * 前30分钟放量（开盘第2个15分钟的量大于开盘第一个15分钟的量）
+	 * @param map
+	 * @param filePath
+	 * @param number
+	 */
+	public static void doLocalWriteMvFileV15(Map<String, StockTencent> map, String filePath, int number) {
+		SimpleDateFormat sdfHmm = new SimpleDateFormat("Hmm");
+        int now = Integer.parseInt(sdfHmm.format(new Date()));
+        if(now > 1001) {
+        	return;
+        }
+        
+		List<StockTencent> list = new ArrayList<StockTencent>();
+		StockTencent stock = null;
+		for (Map.Entry<String, StockTencent> entry : map.entrySet()) {
+			stock = entry.getValue();			
+			if (stock.getDoneQuantity() == 0
+//					|| stock.getUpJjTimes() < stock.getUpdateSum()/4
+					|| stock.getCloseYesterday() <= 0
+					|| stock.getV15() > (stock.getV30() - stock.getV15())) {
 				continue;
 			}
 			

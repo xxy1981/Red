@@ -66,6 +66,12 @@ public class StockSina implements java.io.Serializable {
 	private String selectMark;    	//自选股标志
 
 	private int doneQuantity933;    //9:33分前成交的股票数（单位股）
+	private int v5;    	//前5分钟成交的股票数（单位股）
+	private int v10;    //前5分钟成交的股票数（单位股）
+	private int v15;    //前5分钟成交的股票数（单位股）
+	private int v20;    //前5分钟成交的股票数（单位股）
+	private int v25;    //前5分钟成交的股票数（单位股）
+	private int v30;    //前5分钟成交的股票数（单位股）
 
 	// Constructors
 
@@ -551,6 +557,54 @@ public class StockSina implements java.io.Serializable {
 
 	public void setDoneQuantity933(int doneQuantity933) {
 		this.doneQuantity933 = doneQuantity933;
+	}
+
+	public int getV5() {
+		return v5;
+	}
+
+	public void setV5(int v5) {
+		this.v5 = v5;
+	}
+
+	public int getV10() {
+		return v10;
+	}
+
+	public void setV10(int v10) {
+		this.v10 = v10;
+	}
+
+	public int getV15() {
+		return v15;
+	}
+
+	public void setV15(int v15) {
+		this.v15 = v15;
+	}
+
+	public int getV20() {
+		return v20;
+	}
+
+	public void setV20(int v20) {
+		this.v20 = v20;
+	}
+
+	public int getV25() {
+		return v25;
+	}
+
+	public void setV25(int v25) {
+		this.v25 = v25;
+	}
+
+	public int getV30() {
+		return v30;
+	}
+
+	public void setV30(int v30) {
+		this.v30 = v30;
 	}
 	
 }

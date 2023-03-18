@@ -29,6 +29,8 @@ public interface StockWebsiteConstants {
 	public final static String LOCAL_ZXG_FILE1030 = PropertiesUtil.getPropertyString("conf-param.properties", "local.zxg.file1030");
 	public final static String LOCAL_ZXG_FILE1100 = PropertiesUtil.getPropertyString("conf-param.properties", "local.zxg.file1100");
 	public final static String LOCAL_ZXG_FILE1130 = PropertiesUtil.getPropertyString("conf-param.properties", "local.zxg.file1130");
+	public final static String LOCAL_MV_FILEV5 = PropertiesUtil.getPropertyString("conf-param.properties", "local.mv.filev5");
+	public final static String LOCAL_MV_FILEV15 = PropertiesUtil.getPropertyString("conf-param.properties", "local.mv.filev15");
     public final static String LOCAL_VIEW_FILE = PropertiesUtil.getPropertyString("conf-param.properties", "local.view.file");
 	public final static int LOCAL_ZXG_NUMBER = PropertiesUtil.getPropertyInt("conf-param.properties", "local.zxg.number");
 	public final static double ZXG_LB = PropertiesUtil.getPropertyDouble("conf-param.properties", "zxg.lb");
